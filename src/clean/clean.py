@@ -26,13 +26,16 @@ def clean_data():
 	print('1. Renaming')
 	rename_data()
 
-	print('2. Fahrenheit to Celsius')
+	print('2. Removing rows with wrong temperatures (= -99)')
+	df = df[df.AvgTemperature != -99.0]
+
+	print('3. Fahrenheit to Celsius')
 	df['AvgTemperature'] = df['AvgTemperature'].apply(lambda x: float(round((x - 32) * 5 / 9, 2)))
 
-	print('3. Removing incomplete months')
+	print('4. Removing incomplete months')
 	remove_incomplete_months()
 
-	print('4. Saving to file: ' + CITY_TEMPERATURE_CLEAN_PATH)
+	print('5. Saving to file: ' + CITY_TEMPERATURE_CLEAN_PATH)
 	df.to_csv(CITY_TEMPERATURE_CLEAN_PATH, index=False)
 
 
