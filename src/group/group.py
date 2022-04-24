@@ -24,6 +24,7 @@ def group_countries_by_month():
 	df = pd.read_csv(CITY_TEMPERATURE_CLEAN_PATH, low_memory=False)
 	df = df.groupby(['Month', 'Year', 'Country', 'City']) \
 		.agg({'AvgTemperature': 'mean'}) \
+		.round(2) \
 		.rename(columns={'AvgTemperature': 'MonthAvgTemperature'}) \
 		.reset_index()
 	print('Saving to file: ' + CITY_TEMPERATURE_GROUP_BY_MONTH_PATH)
@@ -34,6 +35,7 @@ def group_countries_by_year():
 	df = pd.read_csv(CITY_TEMPERATURE_GROUP_BY_MONTH_PATH, low_memory=False)
 	df = df.groupby(['Year', 'Country', 'City']) \
 		.agg({'MonthAvgTemperature': 'mean'}) \
+		.round(2) \
 		.rename(columns={'MonthAvgTemperature': 'YearAvgTemperature'}) \
 		.reset_index()
 	print('Saving to file: ' + CITY_TEMPERATURE_GROUP_BY_YEAR_PATH)
