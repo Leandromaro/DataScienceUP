@@ -1,6 +1,7 @@
 from timeit import default_timer as timer
 from clean import clean_data
 from group import group_data
+from chart import pie_chart
 
 if __name__ == '__main__':
 	start = timer()
@@ -12,4 +13,5 @@ if __name__ == '__main__':
 	group_data()
 	end_group_data = timer()
 	print("Took: " + str(end_group_data - end_clean_data) + " seconds")
+	pie_chart()
 
