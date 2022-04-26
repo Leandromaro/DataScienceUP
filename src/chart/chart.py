@@ -1,58 +1,59 @@
-import matplotlib.pyplot as plt
 import os
-
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from datetime import datetime
 
 dirname = os.path.dirname(__file__)
 COUNTRIES_PERCENTAGE_GROUP_PATH = os.path.join(dirname, '../res/group/countries_percentage.csv')
 CITY_TEMPERATURE_GROUP_ARGENTINA_BY_YEAR_PATH = os.path.join(dirname, '../res/group/argentina_temperature_by_year.csv')
 
+COUNTRIES_PIE_CHART = os.path.join(dirname, '../img/countries_pie_chart.png')
+ARGENTINA_BOX_PLOT = os.path.join(dirname, '../img/argentina_box_plot.png')
+ARGENTINA_LINE_PLOT = os.path.join(dirname, '../img/argentina_line_plot.png')
+
+
+def create_charts():
+	pie_chart()
+	bar_plot()
+	argentina_line_plot()
+
 
 def pie_chart():
-    df = pd.read_csv(COUNTRIES_PERCENTAGE_GROUP_PATH, low_memory=False)
-    labels = df.Region
-    sizes = df.Percentage
-    explode = (0, 0, 0, 0, 0, 0, 0)
+	df = pd.read_csv(COUNTRIES_PERCENTAGE_GROUP_PATH, low_memory=False)
+	labels = df.Region
+	sizes = df.Percentage
+	explode = (0, 0, 0, 0, 0, 0, 0)
+	fig1, ax1 = plt.subplots()
+	ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
+	ax1.axis('equal')
 
-    fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
-    ax1.axis('equal')
-    plt.savefig('countries_cake.png')
-    plt.show()
-
-
-def pie_plot():
-    df = pd.read_csv(CITY_TEMPERATURE_GROUP_ARGENTINA_BY_YEAR_PATH, low_memory=False)
-    x = df.Year
-
-    y = df.YearAvgTemperature
-
-    fig = plt.figure(figsize=(12, 6))
-    plt.xlabel("Years")
-    plt.ylabel("Temperature Average")
-    ax = fig.add_subplot(111)
-    ax.bar(np.arange(len(x)), y)
-    ax.set_xticks(np.arange(len(x)))
-    ax.set_xticklabels(x, rotation=15, zorder=100)
-
-    plt.savefig('argentina_plot.png')
-    plt.show()
+	plt.savefig(COUNTRIES_PIE_CHART)
+	plt.show()
 
 
-def pie_histogram():
-    df = pd.read_csv(CITY_TEMPERATURE_GROUP_ARGENTINA_BY_YEAR_PATH, low_memory=False)
+def bar_plot():
+	df = pd.read_csv(CITY_TEMPERATURE_GROUP_ARGENTINA_BY_YEAR_PATH, low_memory=False)
+	x = df.Year
+	y = df.YearAvgTemperature
 
-    X1 = df.Year
-    Y1 = df.YearAvgTemperature
+	plt.bar(x, y)
+	plt.xlabel("Años")
+	plt.ylabel("Temperatura Promedio")
+	plt.title("Temperatura promedio por año en Argentina")
 
-    plt.plot(X1, Y1)
-    plt.xlabel('Year')
-    plt.ylabel('Temperature Average')
-    plt.title('Temperature Average by Year')
-    plt.savefig('argentina_plot_lines.png')
+	plt.savefig(ARGENTINA_BOX_PLOT)
+	plt.show()
 
-    plt.legend()
 
-    plt.show()
+def argentina_line_plot():
+	df = pd.read_csv(CITY_TEMPERATURE_GROUP_ARGENTINA_BY_YEAR_PATH, low_memory=False)
+	x1 = df.Year
+	y1 = df.YearAvgTemperature
+
+	plt.plot(x1, y1)
+	plt.xlabel('Año')
+	plt.ylabel('Temperatura Promedio')
+	plt.title('Temperatura promedio por año en Argentina')
+
+	plt.savefig(ARGENTINA_LINE_PLOT)
+	plt.show()
