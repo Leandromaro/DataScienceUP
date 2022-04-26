@@ -3,6 +3,7 @@ import os
 
 import numpy as np
 import pandas as pd
+from datetime import datetime
 
 dirname = os.path.dirname(__file__)
 COUNTRIES_PERCENTAGE_GROUP_PATH = os.path.join(dirname, '../res/group/countries_percentage.csv')
@@ -37,4 +38,21 @@ def pie_plot():
     ax.set_xticklabels(x, rotation=15, zorder=100)
 
     plt.savefig('argentina_plot.png')
+    plt.show()
+
+
+def pie_histogram():
+    df = pd.read_csv(CITY_TEMPERATURE_GROUP_ARGENTINA_BY_YEAR_PATH, low_memory=False)
+
+    X1 = df.Year
+    Y1 = df.YearAvgTemperature
+
+    plt.plot(X1, Y1)
+    plt.xlabel('Year')
+    plt.ylabel('Temperature Average')
+    plt.title('Temperature Average by Year')
+    plt.savefig('argentina_plot_lines.png')
+
+    plt.legend()
+
     plt.show()
