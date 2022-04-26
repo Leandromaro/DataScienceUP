@@ -8,7 +8,7 @@ CITY_TEMPERATURE_GROUP_BY_YEAR_PATH = os.path.join(dirname, '../res/group/city_t
 CITY_TEMPERATURE_GROUP_ARGENTINA_BY_MONTH_PATH = os.path.join(dirname,
                                                               '../res/group/argentina_temperature_by_month.csv')
 CITY_TEMPERATURE_GROUP_ARGENTINA_BY_YEAR_PATH = os.path.join(dirname, '../res/group/argentina_temperature_by_year.csv')
-COUNTRIES_PERCENTAGE = os.path.join(dirname, '../res/group/countries_percentage.csv')
+COUNTRIES_PERCENTAGE_GROUP_PATH = os.path.join(dirname, '../res/group/countries_percentage.csv')
 
 
 def group_data():
@@ -65,4 +65,4 @@ def count_continents():
     pd.DataFrame({'Percentage': df.groupby('Region').size() / len(df) * 100}) \
         .reset_index() \
         .rename(columns={"Index": "Percent"}) \
-        .to_csv(COUNTRIES_PERCENTAGE, index=False)
+        .to_csv(COUNTRIES_PERCENTAGE_GROUP_PATH, index=False)
