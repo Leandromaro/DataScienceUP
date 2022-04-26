@@ -1,2 +1,2 @@
 # DataScienceUP
-Universidad Palermo data science final presentation
+Palermo University data science's final presentation
