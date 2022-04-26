@@ -1,13 +1,17 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-import numpy as np
 import src.constants as c
 
+
 def create_plots():
+	print('1. Creating continents pie chart')
 	continents_pie_chart()
+	print('2. Creating Argentina bar plot')
 	argentina_bar_plot()
+	print('3. Creating Argentina line plot')
 	argentina_line_plot()
+	print('4. Creating continents plots')
 	plot_continents()
 
 
@@ -24,9 +28,12 @@ def continents_pie_chart():
 
 
 def plot_continents():
+	print('4.1. Creating Africa scatter plot')
 	africa_scatter_plot()
+	print('4.2. Creating Oceania line plot')
 	oceania_line_plot()
-	south_america_multi_scatter()
+	print('4.3. Creating South America multi scatter plot')
+	south_america_multi_scatter_plot()
 
 
 def africa_scatter_plot():
@@ -35,12 +42,15 @@ def africa_scatter_plot():
 	plt.figure(figsize=(14, 8))
 	g = sns.scatterplot(data=df, x='Date', y='AvgTemperature', hue='Country')
 
+	ticks = list(df['Date'])
+	plt.xticks([ticks[i] for i in range(len(ticks)) if i % 2000 == 0], rotation='vertical')
 	plt.xlabel('Fecha')
-	plt.ylabel('Temperatura Promedio')
+	plt.ylabel('Temperatura Promedio (°C)')
 	plt.title('Temperaturas de África')
+
 	box = g.get_position()
 	g.set_position([box.x0, box.y0, box.width * 0.85, box.height])
-	g.legend(loc='center right', bbox_to_anchor=(1.28, 0.5), ncol=1)
+	g.legend(loc='center right', bbox_to_anchor=(1.28, 0.5), ncol=1, title="Países")
 
 	plt.savefig(c.AFRICA_SCATTER_PLOT_BY_DAY)
 	plt.show()
@@ -55,17 +65,18 @@ def oceania_line_plot():
 	ticks = list(df['Date'])
 	plt.xticks([ticks[i] for i in range(len(ticks)) if i % 30 == 0], rotation='vertical')
 	plt.xlabel('Fecha')
-	plt.ylabel('Temperatura Promedio')
+	plt.ylabel('Temperatura Promedio (°C)')
 	plt.title('Temperaturas de Oceanía')
+
 	box = g.get_position()
 	g.set_position([box.x0, box.y0, box.width * 0.85, box.height])
-	g.legend(loc='center right', bbox_to_anchor=(1.28, 0.5), ncol=1)
+	g.legend(loc='center right', bbox_to_anchor=(1.28, 0.5), ncol=1, title="Países")
 
 	plt.savefig(c.OCEANIA_LINE_PLOT_BY_MONTH)
 	plt.show()
 
 
-def south_america_multi_scatter():
+def south_america_multi_scatter_plot():
 	df = pd.read_csv(c.GROUP_SOUTH_AMERICA_BY_MONTH_PATH, low_memory=False)
 
 	plt.figure(figsize=(14, 10))
@@ -76,7 +87,7 @@ def south_america_multi_scatter():
 	grid.set_titles("{col_name}")
 	grid.set_xticklabels(rotation=90)
 	grid.set_xlabels('Fecha')
-	grid.set_ylabels('Temperatura Promedio')
+	grid.set_ylabels('Temperatura Promedio (°C)')
 
 	plt.savefig(c.SOUTH_AMERICA_MULTI_SCATTER_PLOT_BY_MONTH)
 	plt.show()
@@ -89,7 +100,7 @@ def argentina_bar_plot():
 
 	plt.bar(x, y)
 	plt.xlabel('Años')
-	plt.ylabel('Temperatura Promedio')
+	plt.ylabel('Temperatura Promedio (°C)')
 	plt.title('Temperatura promedio por año en Argentina')
 
 	plt.savefig(c.ARGENTINA_BOX_PLOT)
@@ -103,7 +114,7 @@ def argentina_line_plot():
 
 	plt.plot(x1, y1)
 	plt.xlabel('Año')
-	plt.ylabel('Temperatura Promedio')
+	plt.ylabel('Temperatura Promedio (°C)')
 	plt.title('Temperatura promedio por año en Argentina')
 
 	plt.savefig(c.ARGENTINA_LINE_PLOT)

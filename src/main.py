@@ -24,4 +24,4 @@ if __name__ == '__main__':
 	print('Took: ' + str(third) + ' seconds')
 
 	total = first + second + third
-	print('The whole process took: ' + str(total) + 'seconds')
+	print('The whole process took: ' + str(total) + ' seconds')
